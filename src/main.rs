@@ -7,6 +7,7 @@ use std::str::FromStr;
 use tempfile::NamedTempFile;
 use directories::ProjectDirs;
 use std::path::PathBuf;
+use ansi_term::Color::{Black, Green, Yellow};
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Item {
@@ -246,9 +247,9 @@ fn list_tasks(json: Vec<Item>) {
     println!("All items:");
     for (index, item) in json.iter().enumerate() {
         let completed_text = if item.completed {
-            "[x]"
+            Black.on(Green).paint("[x]")
         } else {
-            "[ ]"
+            Black.on(Yellow).paint("[ ]")
         };
         println!("{}. {} {}", index + 1, completed_text, item.item);
     }
